@@ -1,0 +1,25 @@
+class Solution:
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        
+        cols = len(text1)
+        rows = len(text2)
+        dp = [(cols+1) * [0] for _ in range(rows+1)]
+
+        for i in range(1, rows+1):
+            for j in range(1, cols+1):
+                if text1[j-1] == text2[i-1]:
+                    dp[i][j] = dp[i-1][j-1] + 1
+                else:
+                    dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+        
+        return dp[-1][-1]
+
+
+    #     text1="crabt"
+    #     text2="cat"
+
+    #     . c r a b t
+    #   . 0 0 0 0 0 0
+    #   c 0 1 1 1 1 1
+    #   a 0 1 1 2 2 2
+    #   t 0 1 1 2 2 3
